@@ -2,7 +2,9 @@ import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import {rootReducer} from './redux/rootReducer';
-import {increment, asyncIncrement, decrement, changeTheme} from './redux/actions';
+import {increment, asyncIncrement, decrement, changeTheme,
+       enableButtons, disableButtons
+       } from './redux/actions';
 import './styles.css';
 
 
@@ -48,15 +50,7 @@ asyncBtn.addEventListener('click', () => {
 });
 
 
-store.subscribe(() => {
-    const state = store.getState();
-    
-    counter.textContent = state.counter;
-    document.body.className = state.theme.value;
-});
 
-
-store.dispatch({type: 'INIT_APPLICATION'})
 
 
 themeBtn.addEventListener('click', () => {
@@ -64,3 +58,14 @@ themeBtn.addEventListener('click', () => {
    store.dispatch(changeTheme(newTheme));
 })
 
+store.subscribe(() => {
+    const state = store.getState();
+    
+    counter.textContent = state.counter;
+    document.body.className = state.theme.value;
+    
+    [addBtn, subBtn, themeBtn, asyncBtn].forEach(btn => 
+        btn.disabled = state.theme.disabled);
+});
+
+store.dispatch({type: 'INIT_APPLICATION'})
