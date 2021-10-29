@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {INCREMENT, DECREMENT} from './types';
+import {CHANGE_THEME, INCREMENT, DECREMENT} from './types';
 
 function counterReducer(state = 0, action){
     
@@ -18,8 +18,12 @@ const initialThemeState = {
 }
 
 function themeReducer(state = initialThemeState, action){
+    switch(action.type){
+        case CHANGE_THEME:
+          return {...state, value: 'dark'}
+        default: return state
+    }
     
-    return state;
 }
 
 export const rootReducer = combineReducers({

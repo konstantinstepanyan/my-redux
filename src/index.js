@@ -2,7 +2,7 @@ import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import {rootReducer} from './redux/rootReducer';
-import {increment, asyncIncrement, decrement} from './redux/actions';
+import {increment, asyncIncrement, decrement, changeTheme} from './redux/actions';
 import './styles.css';
 
 
@@ -59,6 +59,6 @@ store.dispatch({type: 'INIT_APPLICATION'})
 
 
 themeBtn.addEventListener('click', () => {
-   
+   store.dispatch(changeTheme());
 })
 
