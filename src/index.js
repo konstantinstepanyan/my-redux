@@ -1,5 +1,6 @@
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import {rootReducer} from './redux/rootReducer';
 import {increment, asyncIncrement, decrement} from './redux/actions';
 import './styles.css';
@@ -13,21 +14,20 @@ const asyncBtn = document.getElementById('async');
 const themeBtn = document.getElementById('theme');
 
 
-function logger(state){
-    return function(next) {
-        return function(action){
-            console.log('PrevState:', state.getState());
-            console.log('action:', action);
-            const newState = next(action);
-            console.log('newState:', newState);
-            return newState
-        }
-    }
-}
-
+//function logger(state){
+//    return function(next) {
+//        return function(action){
+//            console.log('PrevState:', state.getState());
+//            console.log('action:', action);
+//            const newState = next(action);
+//            console.log('newState:', newState);
+//            return newState
+//        }
+//    }
+//}
+//
 
 const store = createStore(rootReducer, 
-                          42, 
                           applyMiddleware(thunk, logger)
                          );
 
@@ -51,7 +51,7 @@ asyncBtn.addEventListener('click', () => {
 store.subscribe(() => {
     const state = store.getState();
     
-    counter.textContent = state;
+    counter.textContent = state.counter;
 });
 
 
