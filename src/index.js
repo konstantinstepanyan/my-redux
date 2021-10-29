@@ -52,6 +52,7 @@ store.subscribe(() => {
     const state = store.getState();
     
     counter.textContent = state.counter;
+    document.body.className = state.theme.value;
 });
 
 
@@ -59,6 +60,7 @@ store.dispatch({type: 'INIT_APPLICATION'})
 
 
 themeBtn.addEventListener('click', () => {
-   store.dispatch(changeTheme());
+    const newTheme = document.body.classList.contains('light') ? 'dark' : 'light';
+   store.dispatch(changeTheme(newTheme));
 })
 

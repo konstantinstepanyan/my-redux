@@ -13,9 +13,10 @@ export function decrement(){
     }
 }
 
-export function changeTheme(){
+export function changeTheme(newTheme){
     return{
-        type: 'CHANGE_THEME'
+        type: 'CHANGE_THEME',
+        payload: newTheme
     }
 }
 
